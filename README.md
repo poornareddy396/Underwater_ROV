@@ -4,6 +4,14 @@
 
 A multidisciplinary BTP project integrating **mechanical design, underwater propulsion, embedded control, variable-buoyancy depth control, live video, communication, and computer vision**. The project is being developed as a practical, modular ROV rather than as a purely software or laboratory demonstrator.
 
+<p align="center">
+  <img src="mechanical/prototype_0/prototype_0_assembled_bot.png" width="700">
+</p>
+
+<p align="center">
+  <b>Fully Assembled Underwater ROV — Prototype 0</b>
+</p>
+
 ---
 
 ## 1. Project Overview
@@ -331,13 +339,9 @@ The key design problem was not simply making an enclosure that looked sealed on 
 
 The red-and-blue capped robot shown below represents the **initial Prototype 0**, not the later Iteration 2 design.
 
-![Prototype 0 assembled robot](mechanical/prototype_0/prototype_0_assembled_bot.png)
-
 Prototype 0 used a cylindrical acrylic body with 3D-printed end-cap structures and the initial internal mechanical arrangement.
 
 Pool testing exposed the main weakness of the enclosure: **water ingress at the end-cap/tube sealing region**.
-
-![Prototype 0 pool test](mechanical/prototype_0/prototype_0_pool_test.jpg)
 
 ### Why Prototype 0 failed
 
@@ -359,6 +363,14 @@ This established the primary mechanical requirement for the subsequent redesigns
 ## 10.2 Iteration 1 — Intermediate Mechanical Design
 
 Iteration 1 was developed after the Prototype 0 failure as an intermediate mechanical redesign.
+
+<p align="center">
+  <img src="mechanical/prototype_0/prototype_0_pool_test.jpg" width="700">
+</p>
+
+<p align="center">
+  <b>Underwater Submersion Test</b>
+</p>
 
 The purpose of this stage was to improve the enclosure arrangement and sealing approach while evaluating the mechanical changes through fabrication and underwater testing.
 
@@ -410,15 +422,6 @@ The mechanical principle is:
 
 The six through-rods apply the clamping force across the complete end-plate assembly rather than concentrating the sealing action around a printed thread.
 
-### Iteration 2 validation
-
-The reported submerged test showed **zero observed water ingress for more than 12 minutes of continuous submersion**.
-
-This was the key successful mechanical result of the current BTP cycle.
-
-![Iteration 2 CAD model](mechanical/iteration_2/iteration_2_fusion_model.png)
-
----
 
 # 11. Mechanical Depth-Control Assembly
 
