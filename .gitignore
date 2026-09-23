@@ -1,0 +1,51 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+
+# Environment / secrets
+.env
+*.pem
+*.key
+id_rsa
+id_ed25519
+
+# STM32 / Embedded build output
+Debug/
+Release/
+build/
+*.elf
+*.map
+*.o
+*.d
+*.bin
+*.hex
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Python / ML generated files
+runs/
+wandb/
+checkpoints/
+
+# Large datasets
+data/raw/*
+data/ml/*
+!data/raw/.gitkeep
+!data/ml/.gitkeep
+
+# Temporary files
+*.tmp
+*.log
+
+# Large videos
+*.mov
