@@ -2,7 +2,7 @@
 
 > **A tethered underwater robotic platform for search, visual inspection, and assisted recovery in low-visibility environments.**
 
-A multidisciplinary prototype integrating **mechanical design, embedded control, underwater propulsion, variable buoyancy, live video, and computer vision**. The current BTP cycle focuses on turning the earlier bench-tested platform into a more reliable, water-ready system by addressing the mechanical sealing and system-level thermal limitations identified during testing.
+A multidisciplinary prototype integrating **mechanical design, embedded control, underwater propulsion, variable buoyancy, live video, and computer vision**. The current BTP cycle focuses on improving the reliability of the earlier platform and addressing the mechanical sealing and system-level thermal limitations identified during testing.
 
 ---
 
@@ -36,7 +36,7 @@ The operator communicates with the robot through a tethered ground station. The 
 
 ![System connection diagram](schematics/overall_system_connection_diagram.png)
 
-The software and electronics architecture was retained from the earlier prototype while the current work concentrated on reliability and deployment constraints.
+The communication architecture separates high-level processing from timing-sensitive actuator control.
 
 ![Communication and connection flow](schematics/communication_connection_flow.png)
 
@@ -44,94 +44,76 @@ The software and electronics architecture was retained from the earlier prototyp
 
 # Mechanical Design Evolution
 
-A major part of this BTP cycle was identifying why the previous mechanical enclosure could not survive underwater operation and replacing the sealing concept rather than repeatedly modifying the same design.
+The mechanical system went through **three major stages: Prototype 0, Iteration 1, and Iteration 2**. The progression was driven by physical testing rather than only CAD refinement.
 
-## 1. Failure Analysis — Previous Prototype
+The key engineering problem was waterproofing the acrylic enclosure under submerged conditions.
 
-The first-generation enclosure used **3D-printed ABS end caps with an O-ring-based sealing arrangement**. During pool testing, water entered through the printed material/infill regions and through the interface between the end cap and acrylic tube.
+## Prototype 0 — Initial Threaded-Cap Design
 
-A second limitation was observed at the system level: running YOLOv8 directly on the Raspberry Pi inside the sealed enclosure produced a significant thermal load, causing the enclosed system to overheat and shut down.
+The **red/blue threaded-cap assembly** was the initial mechanical prototype. It used 3D-printed end-cap components and a threaded sealing arrangement around the acrylic tube.
 
-These tests established two separate design requirements:
+During submerged testing, water ingress was observed around the sealing/interface region. The test exposed the limitations of relying on a 3D-printed threaded interface for a pressure-resistant underwater enclosure.
 
-1. The enclosure required a more uniform, pressure-resistant sealing method.
-2. Heavy ML computation should not be treated as an on-board thermal load inside the sealed volume.
+![Prototype 0 — initial threaded-cap design](mechanical/prototype_0_report_page_5.png)
 
----
-
-## 2. Mechanical Design Iteration 1 — “Bottle-Cap” Threaded Seal
-
-The first redesign attempted to solve the leakage problem using a **threaded bottle-cap style enclosure**. Two threaded components were fixed to the acrylic tube and complementary caps were used to close the ends.
-
-The design was strengthened using:
-
-- 100% infill for the printed components
-- RTV silicone at the acrylic/printed interface
-- PTFE/Teflon tape on the threads
-- Custom two-part silicone gaskets
-- Grease as a secondary moisture barrier
-
-Despite these measures, underwater testing still showed leakage through the threaded region.
-
-![Iteration 1 pool test](mechanical/iteration_1/iteration_1_pool_test.jpg)
-
-### Why Iteration 1 failed
-
-The main problem was the **threaded pressure-sealing interface**. 3D-printed threads contain small dimensional and layer-level irregularities, making it difficult to maintain a continuous sealing surface under external hydrostatic pressure. The combination of thread gaps and prolonged submersion ultimately allowed water ingress.
-
-The internal fill test initially appeared successful, but the external submerged test exposed the pressure-dependent leakage that the internal test could not reproduce.
-
-**Design decision:** instead of improving the threads further, the sealing principle itself was changed.
+The Prototype 0 failure established the main mechanical requirement for the following designs: the enclosure needed a more uniform and repeatable compression-based seal.
 
 ---
 
-## 3. Mechanical Design Iteration 2 — Through-Rod Compression Seal
+## Iteration 1 — Intermediate Mechanical Redesign
 
-The final mechanical approach moved to a **flat-face compression gasket**, similar in principle to a flanged pressure-vessel joint.
+Following the Prototype 0 failure, the mechanical design was revised and fabricated as an intermediate configuration. This stage was used to improve the enclosure geometry, component arrangement, and mechanical integration before moving to the final compression-based sealing concept.
 
-The threaded 3D-printed end caps were removed and replaced by:
+![Iteration 1 mechanical prototype](mechanical/iteration_1/iteration_1_pool_test.jpg)
+
+The lessons from this stage were used to move away from relying on printed threaded interfaces and toward a distributed mechanical clamping mechanism.
+
+> **Design lesson:** underwater sealing was treated as a system-level mechanical problem rather than a problem that could be solved simply by adding more sealant to a threaded joint.
+
+---
+
+## Iteration 2 — Through-Rod Compression Seal
+
+The final mechanical redesign replaced the threaded sealing approach with a **flat-face compression gasket**.
+
+The design uses:
 
 - 8 mm laser-cut circular acrylic end plates
-- Custom two-part silicone gasket seated in machined cavities
-- Polished acrylic tube edges for improved gasket contact
-- Six M8 threaded steel rods running along the tube
-- Uniform clamping force applied through nuts/wedges
+- Custom two-part silicone gasket
+- Machined gasket seating surfaces
+- Polished acrylic tube edges
+- Six M8 threaded steel through-rods
+- Nuts/wedges to apply distributed clamping force
 
-![Through-rod compression assembly](mechanical/iteration_2/through_rod_compression_assembly.jpg)
+![Iteration 2 through-rod assembly](mechanical/iteration_2/through_rod_compression_assembly.jpg)
 
-The design creates a distributed axial clamping force instead of depending on the dimensional accuracy of printed threads.
-
-![Final compression assembly](mechanical/iteration_2/final_assembled_bot.png)
+Unlike the previous threaded design, the sealing force is distributed across the complete end-plate interface.
 
 ### Validation
 
-The redesigned enclosure was submerged for **more than 12 minutes continuously with zero observed water ingress** during the reported test.
+The Iteration 2 enclosure was submerged for **more than 12 minutes continuously with zero observed water ingress** in the reported test.
 
-This was the key mechanical improvement of the current BTP cycle: the sealing problem was addressed by changing from a threaded printed interface to a uniformly compressed gasket joint.
+This provided the first successful validation of the redesigned compression-sealing concept.
+
+![Iteration 2 compression assembly](mechanical/iteration_2/final_assembled_bot.png)
 
 ---
 
-## 4. Final Mechanical Integration
+## Final Mechanical Integration
 
-The final Fusion 360 model integrates the enclosure, internal structural elements, propulsion arrangement and depth-control mechanism into one platform.
+The final Fusion 360 assembly combines the enclosure, internal structural elements, propulsion arrangement, and depth-control mechanism.
 
 ![Final Fusion 360 model](mechanical/iteration_2/fusion_360_final_model.png)
 
-The lead-screw mechanism provides controlled movement of the depth-control assembly and forms part of the retained 3-DOF architecture:
-
-- Forward / backward motion
-- Left / right differential thrust
-- Depth control through the lead-screw mechanism
+The retained depth-control mechanism uses a lead screw to move the buoyancy-control assembly.
 
 ![Lead screw mechanism](mechanical/iteration_2/lead_screw_mechanism.png)
 
-The assembled prototype was subsequently taken into pool testing to verify the mechanical and propulsion integration under water.
-
-![Pool testing](mechanical/iteration_2/final_assembled_bot.png)
+The resulting platform was then taken through pool-level mechanical and propulsion testing.
 
 ---
 
-## Electronics & Control
+# Electronics & Control
 
 The electronics use a hierarchical architecture:
 
@@ -144,15 +126,15 @@ The electronics use a hierarchical architecture:
 | Depth control | Stepper + lead screw | Controlled depth adjustment |
 | Vision | Low-light camera | Live underwater video |
 
-The electronics and connection architecture from the previous prototype was retained while the mechanical enclosure and compute architecture were improved.
+The electronics and control architecture were retained from the earlier prototype while the current work concentrated on mechanical reliability and system-level improvements.
 
 ---
 
-## Compute & Vision Architecture
+# Compute & Vision Architecture
 
 The earlier system attempted to execute the detection pipeline directly on the sealed Raspberry Pi. Testing showed that the resulting thermal load was unsuitable for prolonged operation inside the enclosure.
 
-The current architecture therefore moves heavy inference to the ground station:
+The current architecture therefore moves heavy inference toward the ground station:
 
 ```text
 Underwater Camera
@@ -171,16 +153,17 @@ Underwater Camera
  Detection + Live Video
 ```
 
-This reduces the computational and thermal burden inside the sealed robot while retaining real-time visual feedback.
+This reduces the computational and thermal burden inside the sealed robot while retaining live visual feedback.
 
 ---
 
-## Current Status
+# Current Status
 
 **Prototype integration and validation stage**
 
-- Mechanical sealing redesign completed
-- Through-rod compression enclosure tested successfully
+- Prototype 0 failure identified through submerged testing
+- Iteration 1 developed as an intermediate mechanical redesign
+- Iteration 2 compression enclosure fabricated
 - Zero observed water ingress for >12 minutes in the reported submerged test
 - STM32 + Raspberry Pi control architecture re-established
 - Stepper / lead-screw depth mechanism bench-tested
@@ -193,7 +176,7 @@ The remaining work is focused on complete system integration, feedthrough sealin
 
 ---
 
-## Next Steps
+# Next Steps
 
 - Seal and validate Ethernet, motor and syringe feedthroughs
 - Finalize internal and external component mounts
